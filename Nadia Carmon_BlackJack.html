@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BlackJack</title>
+</head>
+
+
+<body>
+
+	<form>
+		Your Hand: <input type="text" id="player1" width="4"><input type="text" id="p1h2"><input type="text" id="p1h3"><input type="button" value="Hit" onclick="p1Hit()"><input type="button" value="Stay" onclick="p1Stay()">
+	</form>
+
+		<br >
+
+	<form>
+		Dealer's Hand: <input type="text" id="dealer1"> <input type="text" id="d1h2">
+	</form>
+
+		<br >
+
+	<input type="button" value="Deal" onclick="randomCard()">
+
+	<center><h1 id="winorlose"></h1></center>
+
+	<script type="text/javascript">
+	
+		//********Blackjack is a card game where the player (you) and the dealer bet to see who can get closes to 21 without going over//  
+
+		//***********The two cards are then evaluated (J's, Q's, and K's have the value 10. A's can either have the value 1 or 11)// 
+
+		//*******Hint use this to get random number from 0 to 12: parseInt(Math.random()*13) 
+		//https://drive.google.com/file/d/0B_Ih-udeMm6mbFJVQnBjZ3JsS2M/view//
+
+
+		var deck = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+
+		var deal = 0
+
+			//For-Loop. 3 Steps: 1) Initialization 2) Condition and 3) Implementation// 
+				for(var i=0; i < deck.length; i++) {
+
+					//Display The Random Card On The Screen & ParseInt var deck to Turn Each Value Into An Integer//
+					//var player1 = document.getElementById('player1').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+					//var p1h2 =	document.getElementById('p1h2').value= Math.floor(Math.random() * parseInt(deck.length));
+
+					//var p1h3 = document.getElementById('p1h3').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+					//var dealer1 = document.getElementById('dealer1').value = Math.floor(Math.random() * parseInt(deck.length));
+					
+					//var d1h2 = document.getElementById('d1h2').value = Math.floor(Math.random() * parseInt(deck.length));
+
+					//------------------------------------------------------------//
+
+						//Create a Function That Will Give Each Player 2 Random Cards When Clicked//
+						function randomCard(){
+
+							var player1 = document.getElementById('player1').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+							var p1h2 =	document.getElementById('p1h2').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+							var dealer1 = document.getElementById('dealer1').value = Math.floor(Math.random() * parseInt(deck.length));
+					
+							var d1h2 = document.getElementById('d1h2').value = Math.floor(Math.random() * parseInt(deck.length));
+
+								//Deal 2 Random Cards to Each Player//
+								player1;
+								p1h2;
+								dealer1;
+								d1h2;
+
+
+								//If Anyone Gets 21 They Automatically Win//
+								if(eval(player1 + p1h2) == 21) {
+									document.getElementById('winorlose').innerHTML = "You Win!"
+								}//End of If Statement//
+
+
+								else if(eval(dealer1 + d1h2) == 21) {
+									document.getElementById('winorlose').innerHTML = "You Lose :("
+								}//End of Else If Statement//
+
+						}//End of randomCard Function//
+
+					//-------------------------------------------------------------------//
+
+						//**********If not, then the player is given the option to Hit or Stay ---> Use Event Listeners//
+
+						//**********If the player Hits, another card is given to them and their hand is reevaluated. If they get 21 they win but if they go over 21 they bust, which means they lose. //
+						function p1Hit(){
+
+
+							var player1 = document.getElementById('player1').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+							var p1h2 =	document.getElementById('p1h2').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+							var dealer1 = document.getElementById('dealer1').value = Math.floor(Math.random() * parseInt(deck.length));
+					
+							var d1h2 = document.getElementById('d1h2').value = Math.floor(Math.random() * parseInt(deck.length));
+
+							//Player 1 Hand 3//
+							var p1h3 = document.getElementById('p1h3').value= Math.floor(Math.random() * parseInt(deck.length));
+						
+								//Hit - Deal Another Card To Player1//
+								p1h3;
+
+
+								//Create If Statement for What Happens if Player1 Beats Dealer1 by Getting Closer to 21//
+								if(eval(player1 + p1h2 + p1h3) < 21     &&     eval(player1 + p1h2 + p1h3) > eval(dealer1 + d1h2) ) {
+										document.getElementById('winorlose').innerHTML = "You Win!"
+								}//End of If Statement//	
+
+						
+								//Create If Else Statement for What Happens if Dealer1 Beats Player1 by Getting Closer to 21//
+								else if(eval(dealer1 + d1h2) < 21     &&     eval(dealer1 + d1h2) > eval(player1 + p1h2 + p1h3) ) {
+										document.getElementById('winorlose').innerHTML = "You Lose :("
+								}//End of Else If Statement//
+
+
+								//Create If Else Statement for What Happens if Player1 Goes Over 21//
+								else if(eval(player1 + p1h2 + p1h3) >= 21     &&     eval(dealer1 + d1h2) < 21) {
+										document.getElementById('winorlose').innerHTML = "You Lose :("
+								}//End of Else If Statement//
+
+
+								//Create If Else Statement for What Happens if Dealer1 Goes Over 21//
+								else if(eval(dealer1 + d1h2) >= 21     &&     eval(player1 + p1h2 + p1h3) < 21) {
+										document.getElementById('winorlose').innerHTML = "You Win!"
+								}//End of Else Statement//
+
+
+								//Create If Statement For What Happens if Player1 and Dealer1 Both Go Over 21//
+								else if(eval(dealer1 + d1h2) >= 21     &&     eval(player1 + p1h2 + p1h3) >= 21) {
+										document.getElementById('winorlose').innerHTML = "You Lose!"
+								}//End of Else Statement//
+
+
+								else(document.getElementById('winorlose').innerHTML = "It's A Draw")
+
+						}//End of p1Hit Function//
+
+					//---------------------------------------------------------------------//
+
+						//If They Stay, Both the Players and Dealers Cards are Reevaluated and Whoever is Closest to 21 Wins//				
+						function p1Stay() {
+
+								var player1 = document.getElementById('player1').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+								var p1h2 =	document.getElementById('p1h2').value= Math.floor(Math.random() * parseInt(deck.length));
+					
+								var dealer1 = document.getElementById('dealer1').value = Math.floor(Math.random() * parseInt(deck.length));
+					
+								var d1h2 = document.getElementById('d1h2').value = Math.floor(Math.random() * parseInt(deck.length));
+
+								//Create If Statement for What Happens if Player1 Beats Dealer1 by Getting Closer to 21//
+								if(eval(player1 + p1h2) < 21     &&     eval(player1 + p1h2) > eval(dealer1 + d1h2) ) {
+										document.getElementById('winorlose').innerHTML = "You Win!"
+								}//End of If Statement//	
+
+						
+								//Create If Else Statement for What Happens if Dealer1 Beats Player1 by Getting Closer to 21//
+								else if(eval(dealer1 + d1h2) < 21     &&     eval(dealer1 + d1h2) > eval(player1 + p1h2) ) {
+										document.getElementById('winorlose').innerHTML = "You Lose :("
+								}//End of Else If Statement//
+
+
+								//Create If Else Statement for What Happens if Player1 Goes Over 21//
+								else if(eval(player1 + p1h2) >= 21     &&     eval(dealer1 + d1h2) < 21) {
+										document.getElementById('winorlose').innerHTML = "You Lose :("
+								}//End of Else If Statement//
+
+
+								//Create If Else Statement for What Happens if Dealer1 Goes Over 21//
+								else if(eval(dealer1 + d1h2) >= 21     &&     eval(player1 + p1h2) < 21) {
+										document.getElementById('winorlose').innerHTML = "You Win!"
+								}//End of Else Statement//
+
+
+								//Create If Statement For What Happens if Player1 and Dealer1 Both Go Over 21//
+								else if(eval(dealer1 + d1h2) >= 21     &&     eval(player1 + p1h2 + p1h3) >= 21) {
+										document.getElementById('winorlose').innerHTML = "You Lose!"
+								}//End of Else Statement//
+
+
+								else(document.getElementById('winorlose').innerHTML = "It's A Draw")
+
+
+						}//End of p1Stay Function// 
+
+
+
+
+						//**********Every game the player is given the option to lower or raise their bet. If they win they get earn what they betted, if they lose they lose what they betted, if there is a tie nothing happens.//
+
+						//Create If Statement for What Happens if Player1 Beats Dealer1 by Getting Closer to 21//
+						//if(eval(player1 + p1h2) < 21     &&     eval(player1 + p1h2) > eval(dealer1 + d1h2) ) {
+							//document.getElementById('winorlose').innerHTML = "You Win!"
+						//	}//End of If Statement//	
+
+						
+						//Create If Else Statement for What Happens if Dealer1 Beats Player1 by Getting Closer to 21//
+						//else if(eval(dealer1 + d1h2) < 21     &&     eval(dealer1 + d1h2) > eval(player1 + p1h2) ) {
+						//	document.getElementById('winorlose').innerHTML = "You Lose :("
+						//	}//End of Else If Statement//
+
+
+						//Create If Else Statement for What Happens if Player1 Goes Over 21//
+						//else if(eval(player1 + p1h2) >= 21     &&     eval(dealer1 + d1h2) < 21) {
+						//	document.getElementById('winorlose').innerHTML = "You Lose :("
+						//	}//End of Else If Statement//
+
+
+						//Create If Else Statement for What Happens if Dealer1 Goes Over 21//
+						//else if(eval(dealer1 + d1h2) >= 21     &&     eval(player1 + p1h2) < 21) {
+						//	document.getElementById('winorlose').innerHTML = "You Win!"
+						//	}//End of Else Statement//
+
+
+						//else(
+							//document.getElementById('winorlose').innerHTML = "It's A Draw"
+						//	
+
+
+
+				//2 cards to dealer
+
+				//
+				//if(i <= 0 || i >= deck.length - 3){
+					//document.getElementById('p1').value = 10
+				//}//End of If Statement 
+
+				//
+				//else (document.getElementById('dealer').value = parseInt(i))
+
+
+				//Evaluate the Cards 
+				//total for player
+				//total for dealer
+
+			}//End of For Loop//	
+
+
+
+	</script>
+
+</body>
+</html>
